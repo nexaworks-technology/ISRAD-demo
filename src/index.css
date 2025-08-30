@@ -1,0 +1,14 @@
+/* General Styles */
+/* * {
+  /* margin: 10;
+  padding: 10; */
+  /* box-sizing: border-box; */
+} */
+
+html,
+body {
+  background: #0d0d11;
+  color: #fff;
+}
+
+@import "tailwindcss";
