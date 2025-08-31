@@ -1,116 +1,119 @@
 import Nav from './component/Nav'
+import { useEffect, useRef } from 'react'
+import Lenis from 'lenis'
 
 function App() {
+  useEffect(() => {
+    // Initialize Lenis for smooth scrolling
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
+      direction: 'vertical', // vertical, horizontal
+      gestureDirection: 'vertical', // vertical, horizontal, both
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    })
+
+    // Get scroll value
+    // lenis.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
+    //   console.log({ scroll, limit, velocity, direction, progress })
+    // })
+
+    function raf(time) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+
+    requestAnimationFrame(raf)
+
+    // Clean up
+    return () => {
+      lenis.destroy()
+    }
+  }, [])
   const projects = [
   {
     id: 1,
     title: "Project Alpha",
     tagline: "Revolutionizing player performance analysis",
-    img: "https://via.placeholder.com/150",
+    img: "https://via.placeholder.com/450x300",
   },
   {
     id: 2,
     title: "Sustainability Study",
     tagline: "Reducing environmental impact in sports",
-    img: "https://via.placeholder.com/150",
+    img: "https://via.placeholder.com/450x300",
   },
   {
     id: 3,
     title: "Barrier Breaker",
     tagline: "Innovative access to sports for all",
-    img: "https://via.placeholder.com/150",
+    img: "https://via.placeholder.com/450x300",
   },
   {
     id: 4,
     title: "Data-Driven Coaching",
     tagline: "Precision training through AI insights",
-    img: "https://via.placeholder.com/150",
+    img: "https://via.placeholder.com/450x300",
   },
 ];
   return (
     <>
-    <div className='bg-black text-white'>
+  <div className='bg-[#101820] text-[#F2AA4C]'>
     <Nav/>
-    <div className="homepage">
-<div className="min-h-screen flex flex-col">
-      {/* Hero Section */}
-      <section
-        className="flex flex-col items-center justify-center text-center bg-gradient-to-r from-green-400 to-blue-500 text-white px-6 py-32"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf?auto=format&fit=crop&w=1471&q=80')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <h1 className="text-4xl md:text-5xl font-bold max-w-3xl">
-          Sustainability & Innovation in Sports
-        </h1>
-        <p className="mt-4 text-lg md:text-xl max-w-xl font-light">
-          Expanding Sports Beyond Barriers
-        </p>
-        <button className="mt-8 bg-white text-blue-600 font-semibold px-6 py-3 rounded-md shadow-md hover:bg-gray-100 transition">
-          Explore Our Impact
-        </button>
+    </div>
+    <div style={{fontFamily: "Space Grotesk, sans-serif"}} className="home bg-[#101820] text-[#F2AA4C]">
+      <section className="screen min-h-screen bg-[#101820] flex flex-col justify-center items-center py-20">
+        <h1 className="text-6xl md:text-8xl font-thin mb-8">Welcome to <span className='font-bold'>ISRAD</span></h1>
+        <p className="text-xl md:text-3xl mb-12 max-w-3xl text-center">Innovating sports through research, analysis and design.</p>
+        <div className="scroll-indicator flex flex-col items-center mt-10">
+          <p className="text-sm mb-2">Scroll to explore</p>
+          <div className="w-1 h-16 bg-[#F2AA4C] opacity-50 rounded-full animate-pulse"></div>
+        </div>
       </section>
-
-      {/* About Section */}
-      <section className="px-6 py-16 max-w-4xl mx-auto text-center">
-        <p className="text-gray-700 text-lg md:text-xl max-w-2xl mx-auto font-medium">
-          At israd, actions speak louder than titles. We are committed to
-          driving sustainability in sports while breaking social and economic
-          barriers.
-        </p>
+      
+      <section className="screen min-h-screen bg-[#101820] flex flex-col justify-center items-center py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-5xl mb-16 text-center">"Titles don't mean anything.<br/>Our actions are what is truly priceless."</h2>
+          <div className="w-20 h-1 bg-[#F2AA4C] mx-auto my-10"></div>
+          <p className="text-xl max-w-3xl mx-auto text-center leading-relaxed">
+            At ISRAD, we believe in the power of innovation to transform the world of sports. 
+            Our mission is to blend cutting-edge technology with deep sports expertise to create 
+            solutions that enhance performance, accessibility, and sustainability.
+          </p>
+        </div>
       </section>
-
-      {/* Featured Work Preview */}
-      <section className="px-6 pb-16 max-w-6xl mx-auto">
-        <h2 className="text-2xl font-semibold mb-8 text-center text-gray-800">
-          Featured Projects
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-          {projects.map(({ id, title, tagline, img }) => (
-            <div
-              key={id}
-              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition cursor-pointer"
+      
+      <section className="screen min-h-screen bg-[#101820] flex flex-col justify-center items-center py-20 px-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center">Our Projects</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {projects.map((project) => (
+            <div 
+              key={project.id} 
+              className="project-card border border-[#F2AA4C]/20 rounded-lg overflow-hidden hover:border-[#F2AA4C] transition-all duration-300"
             >
-              <img src={img} alt={title} className="w-full h-32 object-cover" />
-              <div className="p-4">
-                <h3 className="font-semibold text-lg text-gray-800">{title}</h3>
-                <p className="text-gray-600 text-sm mt-1">{tagline}</p>
+              <img src={project.img} alt={project.title} className="w-full h-64 object-cover" />
+              <div className="p-6">
+                <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
+                <p className="text-[#F2AA4C]/80">{project.tagline}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Contact Call-to-Action */}
-      <section className="bg-blue-600 text-white px-6 py-20 text-center">
-        <p className="text-xl md:text-2xl max-w-3xl mx-auto font-medium">
-          Collaborate with us to innovate and grow sports worldwide.
-        </p>
-        <button className="mt-8 bg-white text-blue-600 font-semibold px-6 py-3 rounded-md shadow-md hover:bg-gray-100 transition">
-          Get in Touch
-        </button>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-100 text-gray-700 py-6 text-center text-sm">
-        &copy; {new Date().getFullYear()} israd. All rights reserved.
-        <div className="mt-3 flex justify-center space-x-6 text-gray-500">
-          <a href="#" aria-label="Facebook" className="hover:text-gray-800">
-            Facebook
-          </a>
-          <a href="#" aria-label="Twitter" className="hover:text-gray-800">
-            Twitter
-          </a>
-          <a href="#" aria-label="LinkedIn" className="hover:text-gray-800">
-            LinkedIn
-          </a>
+      <section className="screen min-h-screen bg-[#101820] flex flex-col justify-center items-center py-20 px-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center">Get in Touch</h2>
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-xl mb-10">Interested in working with us? We'd love to hear from you.</p>
+          <button className="px-8 py-4 bg-[#F2AA4C] text-[#101820] font-bold rounded-md hover:bg-[#F2AA4C]/80 transition-all duration-300">
+            Contact Us
+          </button>
         </div>
-      </footer>
-    </div>
-    </div>
+      </section>
     </div>
     </>
   )
