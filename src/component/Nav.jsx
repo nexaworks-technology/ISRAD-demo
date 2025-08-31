@@ -4,12 +4,13 @@ const Nav = () => {
   const [navOpen, setNavOpen] = useState(false);
 
   return (
-    <div className="nav fixed z-20 w-full">
+    <div className="nav fixed z-20 w-full ">
       <div className="nav-container w-full">
         <div className="navbar fixed top-4 left-0 w-full flex justify-between items-center px-4 py-4">
-          <div className="logo no-underline text-white font-bold uppercase text-2xl tracking-widest pl-8">
-            ISRAD
-          </div>
+          <div className="logo font-bold uppercase text-2xl tracking-widest pl-8">
+  <span className="text-white mix-blend-difference">ISRAD</span>
+</div>
+
           <div
             className="menu-toggle cursor-pointer flex items-center justify-center w-12 h-12"
             onClick={() => setNavOpen(!navOpen)}
@@ -101,7 +102,7 @@ const Nav = () => {
           </ul>
           <div className="nav-footer absolute w-full bottom-0 left-0 p-8 flex justify-between">
             <div className={`location relative -bottom-5 transition-all duration-2000 ease-[cubic-bezier(0.16,1,0.3,1)] font-sans uppercase${navOpen ? ' opacity-100' : ' opacity-0'}`}> 
-              <span>Toronto, ON</span>
+              <span>by nexaworks</span>
             </div>
             <div className="nav-social-media">
               <ul className="flex">
