@@ -14,6 +14,10 @@ body {
   color: #fff;
 }
 
+/* Page initial state: slightly dimmed and shifted for a smooth blend from loader */
+.home.is-loading{ opacity:0; transform:translateY(8px) scale(0.997); pointer-events:none }
+.home.is-ready{ opacity:1; transform:none; transition: opacity 680ms cubic-bezier(.12,.9,.18,1) 120ms, transform 620ms cubic-bezier(.12,.9,.18,1) 120ms }
+
 /* Rolling text animation */
 @keyframes textRoll {
   0% {
