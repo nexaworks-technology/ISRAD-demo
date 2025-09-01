@@ -92,7 +92,7 @@ const Nav = () => {
           </div>
 
           <div
-            className="menu-toggle cursor-pointer flex items-center justify-center w-12 h-12 bg-[#101820]"
+            className="menu-toggle cursor-pointer flex items-center rounded-full justify-center w-12 h-12 bg-[#101820]"
             onClick={() => setNavOpen(!navOpen)}
           >
             <div
