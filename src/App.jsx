@@ -88,7 +88,7 @@ function App() {
     </div>
 
     <div style={{fontFamily: "Space Grotesk, sans-serif"}} className="home bg-[#101820] text-[#F2AA4C]">
-      <section className="screen min-h-screen bg-[#101820] flex flex-col justify-center items-center py-12 md:py-20 px-4">
+      <section className="selection:bg-[#F2AA4C] selection:text-[#101820] screen min-h-screen bg-[#101820] flex flex-col justify-center items-center py-12 md:py-20 px-4">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-thin mb-6 md:mb-8 text-center">Welcome to <span className='font-bold'>ISRAD</span></h1>
         <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 md:mb-12 max-w-4xl text-center leading-relaxed">Innovating sports through research, analysis and design.</p>
         <div className="scroll-indicator flex flex-col items-center mt-8 md:mt-10">
@@ -97,9 +97,9 @@ function App() {
         </div>
       </section>
       
-      <section className="screen min-h-screen bg-[#101820] flex flex-col justify-center items-center py-12 md:py-20 px-4">
+      <section className="selection:bg-[#F2AA4C] selection:text-[#101820] screen min-h-screen bg-[#101820] flex flex-col justify-center items-center py-12 md:py-20 px-4">
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-8 md:mb-16 leading-tight">"Titles don't mean anything.<br className="hidden sm:block"/>Our actions are what is truly priceless."</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-8 md:mb-16 leading-tight">"Titles don't mean anything<br className="hidden sm:block"/>Our actions are what is truly priceless"</h2>
           <div className="w-16 sm:w-20 h-0.5 md:h-1 bg-[#F2AA4C] mx-auto my-6 md:my-10"></div>
           <p className="text-base sm:text-lg md:text-xl max-w-4xl mx-auto leading-relaxed">
             At ISRAD, we believe in the power of innovation to transform the world of sports. 
@@ -111,7 +111,7 @@ function App() {
 
       <Projects/>
 
-      <section className="screen min-h-screen bg-[#101820] flex flex-col justify-center items-center py-12 md:py-20 px-4">
+      <section className="selection:bg-[#F2AA4C] selection:text-[#101820] screen min-h-screen bg-[#101820] flex flex-col justify-center items-center py-12 md:py-20 px-4">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-16 text-center">Get in Touch</h2>
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-base sm:text-lg md:text-xl mb-8 md:mb-10">Interested in working with us? We'd love to hear from you.</p>

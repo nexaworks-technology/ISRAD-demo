@@ -45,7 +45,7 @@ export default function Projects() {
     >
       <section className="card pinned hero h-screen bg-[#F2AA4C] w-full">
         <div>
-          <h1 className="lg:text-9xl text-6xl font-thin text-center pt-88">
+          <h1 className="selection:bg-[#101820] selection:text-[#F2AA4C] lg:text-9xl text-6xl font-thin text-[#31312F] text-center pt-88">
             Our Projects
           </h1>
         </div>
@@ -55,7 +55,7 @@ export default function Projects() {
         <div className="img absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full lg:p-20 py-40 px-4">
           <img
             className="w-full h-full object-cover"
-            src="https://imgs.search.brave.com/uzT0jqCtDHXh_6hJhKhw8JL4caym2CYIbw9-dT8Zpr4/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTA0/NDI5NTIxNi92ZWN0/b3IvZGVmb2N1c2Vk/LWFic3RyYWN0LXJl/ZC1iYWNrZ3JvdW5k/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz1IUXEtZGhqWGl4/T2QwN1psWW9sdWVW/Zk5aOUR4UV9vZ1J5/Rnh5a1gwYUh3PQ"
+            src="https://images.pexels.com/photos/17299530/pexels-photo-17299530.jpeg"
             alt=""
           />
         </div>
@@ -65,7 +65,7 @@ export default function Projects() {
         <div className="img absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full lg:p-20 py-40 px-4">
           <img
             className="w-full h-full object-cover"
-            src="https://imgs.search.brave.com/geboIo4I_DkcguZbBXlL8z1qwl23g468tr6LDf3gV8M/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/aW1nYWNhZGVteS5j/b20vc2l0ZXMvZGVm/YXVsdC9maWxlcy9p/bWctYWNhZGVteS1h/Y2FkZW1pY3MtZXh0/ZW5kZWQuanBn"
+            src="https://images.pexels.com/photos/5202383/pexels-photo-5202383.jpeg"
             alt=""
           />
         </div>
@@ -75,7 +75,7 @@ export default function Projects() {
         <div className="img absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full lg:p-20 py-40 px-4">
           <img
             className="w-full h-full object-cover"
-            src="https://imgs.search.brave.com/l6LYZynCW4UWecX2bQ9vRPEcsIba_itvQ2W-NQ8mbbs/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA4Lzg3LzE4LzY0/LzM2MF9GXzg4NzE4/NjQ5NV93ZFpVZDN6/ckY5TDVTN01idG1O/ZnNHVVI0NmRaOUNq/aS5qcGc"
+            src="https://images.pexels.com/photos/25048028/pexels-photo-25048028.jpeg"
             alt=""
           />
         </div>

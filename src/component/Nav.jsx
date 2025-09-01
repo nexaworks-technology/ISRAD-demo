@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const DURATION = 0.25;
@@ -68,6 +68,79 @@ const FlipLink = ({ children, href, onClick, style }) => {
 
 const Nav = () => {
   const [navOpen, setNavOpen] = useState(false);
+  const [isHoveringProjects, setIsHoveringProjects] = useState(false);
+
+  useEffect(() => {
+    // Add hover detection for Projects section
+    const projectsSection = document.querySelector('#pavanom');
+
+    if (!projectsSection) {
+      console.log('Projects section not found');
+      return;
+    }
+
+    const handleProjectsHover = () => {
+      console.log('Projects hover/touch detected');
+      setIsHoveringProjects(true);
+    };
+
+    const handleProjectsLeave = () => {
+      console.log('Projects leave/touch end detected');
+      setIsHoveringProjects(false);
+    };
+
+    // Add comprehensive event listeners for cross-device compatibility
+    const events = [
+      'mouseenter', 'mouseleave',  // Desktop
+      'touchstart', 'touchend',    // Mobile/Tablet
+      'pointerenter', 'pointerleave', // Modern browsers
+      'mouseover', 'mouseout'      // Fallback
+    ];
+
+    events.forEach(event => {
+      if (event.includes('enter') || event.includes('start') || event.includes('over')) {
+        projectsSection.addEventListener(event, handleProjectsHover, { passive: true });
+      } else {
+        projectsSection.addEventListener(event, handleProjectsLeave, { passive: true });
+      }
+    });
+
+    // Fallback: Use Intersection Observer for mobile devices
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log('Projects section is visible');
+            // Only set to true if not already hovering (to avoid conflicts)
+            if (!isHoveringProjects) {
+              setIsHoveringProjects(true);
+            }
+          } else {
+            console.log('Projects section is not visible');
+            // Only reset if we haven't manually set it via touch/hover
+            setTimeout(() => setIsHoveringProjects(false), 100);
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the section is visible
+        rootMargin: '-50px 0px -50px 0px' // Add some margin for better detection
+      }
+    );
+
+    observer.observe(projectsSection);
+
+    return () => {
+      events.forEach(event => {
+        if (event.includes('enter') || event.includes('start') || event.includes('over')) {
+          projectsSection.removeEventListener(event, handleProjectsHover);
+        } else {
+          projectsSection.removeEventListener(event, handleProjectsLeave);
+        }
+      });
+      observer.disconnect();
+    };
+  }, [isHoveringProjects]);
 
   return (
     <div
@@ -75,10 +148,10 @@ const Nav = () => {
       style={{ fontFamily: "Space Grotesk, sans-serif" }}
     >
       <div className="nav-container w-full">
-        <div className="navbar fixed top-4 left-0 w-full flex justify-between items-center px-4 py-4">
-          <div className="logo font-bold uppercase text-2xl tracking-widest pl-8 overflow-hidden">
+        <div className="mix-blend-difference navbar fixed top-4 left-0 w-full flex justify-between items-center px-4 py-4">
+          <div className="select-none logo font-bold uppercase text-xl sm:text-2xl tracking-widest pl-4 sm:pl-8 overflow-hidden">
             <motion.span 
-              className="text-[#F2AA4C] mix-blend-difference inline-block"
+              className={`inline-block transition-colors duration-300 ${isHoveringProjects ? 'text-[#101820]' : 'text-[#F2AA4C]'} mix-blend-difference`}
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ 
@@ -120,7 +193,7 @@ const Nav = () => {
           </div>
         </div>
         <div
-          className="nav-overlay fixed bg-[#101820] -z-10 left-0 w-full h-screen overflow-hidden p-16 transition-all duration-2000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+          className="selection:bg-[#F2AA4C] selection:text-[#101820] nav-overlay fixed bg-[#101820] -z-10 left-0 w-full h-screen overflow-hidden p-16 transition-all duration-2000 ease-[cubic-bezier(0.16,1,0.3,1)]"
           style={{
             top: navOpen ? "0" : "-100%",
             transitionDelay: navOpen ? "0s" : "0s",
