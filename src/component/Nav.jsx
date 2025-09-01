@@ -70,6 +70,13 @@ const Nav = () => {
   const [navOpen, setNavOpen] = useState(false);
   const [isHoveringProjects, setIsHoveringProjects] = useState(false);
 
+  // Reset hover state when navbar opens
+  useEffect(() => {
+    if (navOpen) {
+      setIsHoveringProjects(false);
+    }
+  }, [navOpen]);
+
   useEffect(() => {
     // Add hover detection for Projects section
     const projectsSection = document.querySelector('#pavanom');
@@ -81,15 +88,19 @@ const Nav = () => {
 
     const handleProjectsHover = () => {
       console.log('Projects hover/touch detected');
-      setIsHoveringProjects(true);
+      // Only change color if navigation is not open
+      if (!navOpen) {
+        setIsHoveringProjects(true);
+      }
     };
-
+    
     const handleProjectsLeave = () => {
       console.log('Projects leave/touch end detected');
-      setIsHoveringProjects(false);
-    };
-
-    // Add comprehensive event listeners for cross-device compatibility
+      // Only reset color if navigation is not open
+      if (!navOpen) {
+        setIsHoveringProjects(false);
+      }
+    };    // Add comprehensive event listeners for cross-device compatibility
     const events = [
       'mouseenter', 'mouseleave',  // Desktop
       'touchstart', 'touchend',    // Mobile/Tablet
@@ -111,14 +122,16 @@ const Nav = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             console.log('Projects section is visible');
-            // Only set to true if not already hovering (to avoid conflicts)
-            if (!isHoveringProjects) {
+            // Only set to true if navigation is not open
+            if (!navOpen && !isHoveringProjects) {
               setIsHoveringProjects(true);
             }
           } else {
             console.log('Projects section is not visible');
-            // Only reset if we haven't manually set it via touch/hover
-            setTimeout(() => setIsHoveringProjects(false), 100);
+            // Only reset if navigation is not open
+            if (!navOpen) {
+              setTimeout(() => setIsHoveringProjects(false), 100);
+            }
           }
         });
       },
@@ -140,7 +153,7 @@ const Nav = () => {
       });
       observer.disconnect();
     };
-  }, [isHoveringProjects]);
+  }, [isHoveringProjects, navOpen]);
 
   return (
     <div
