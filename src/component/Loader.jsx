@@ -10,8 +10,9 @@ const Loader = ({ onComplete }) => {
     const el = root.current
     if (!el) return
 
-    // Smooth timeline (ms) with explicit mask expansion phase and fade
-    const timeline = [200, 900, 1600, 2600, 3400]
+  // Smooth timeline (ms) with explicit mask expansion phase and fade
+  // shortened: phases closer together so final mask runs sooner after the hero ('R') transform
+  const timeline = [150, 600, 1000, 1250, 1450]
     const t1 = setTimeout(() => el.classList.add('phase-1'), timeline[0])
     const t2 = setTimeout(() => el.classList.add('phase-2'), timeline[1])
     const t3 = setTimeout(() => el.classList.add('phase-3'), timeline[2])
@@ -19,14 +20,14 @@ const Loader = ({ onComplete }) => {
     const t5 = setTimeout(() => el.classList.add('phase-5'), timeline[4])
 
     // after phase-5, allow the mask to animate to full scale then mark phase-5-done
-    const maskExpandDelay = 420 // ms after phase-5 to toggle 'phase-5-done'
-    const t5done = setTimeout(() => el.classList.add('phase-5-done'), timeline[4] + maskExpandDelay)
+  const maskExpandDelay = 180 // shorter delay after phase-5 to toggle 'phase-5-done'
+  const t5done = setTimeout(() => el.classList.add('phase-5-done'), timeline[4] + maskExpandDelay)
 
-    // after mask expands, wait for the mask transition to finish then fade out the loader
-    // keep JS timings in sync with CSS transitions below
-    const maskTransition = 900 // matches CSS transition for mask expand
-    const fadeDelay = 160
-    const doneFadeDuration = 720 // allow opacity transition to finish before unmount
+  // after mask expands, wait for the mask transition to finish then fade out the loader
+  // keep JS timings in sync with CSS transitions below
+  const maskTransition = 420 // matches CSS transition for mask expand
+  const fadeDelay = 80
+  const doneFadeDuration = 420 // allow opacity transition to finish before unmount
 
     const done = setTimeout(() => {
       el.classList.add('done')
@@ -57,9 +58,7 @@ const Loader = ({ onComplete }) => {
           ))}
         </div>
       </div>
-      <div className="eye" aria-hidden>
-        <div className="pupil" />
-      </div>
+  {/* eye/pupil removed to avoid small dot artifact during transition */}
       <div className="mask-circle" />
     </div>
   )
