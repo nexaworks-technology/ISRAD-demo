@@ -1,0 +1,54 @@
+/* Minimalist Typographic Loader for ISRAD - Monochrome */
+:root{
+  /* match site theme: dark background and ISRAD gold accent */
+  --bg:#101820; /* page background */
+  --fg:#F2AA4C; /* accent / foreground */
+}
+
+.israd-loader-min{
+  position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:var(--bg); z-index:9999; overflow:hidden;
+}
+
+.brand-ctr{ position:relative; z-index:10 }
+.brand{ display:flex; gap:20px; align-items:center }
+.letter{ font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; font-weight:700; color:var(--fg); font-size:64px; opacity:0; transform:translateY(12px); display:inline-block }
+
+/* Staggered appearance left-to-right */
+.israd-loader-min.phase-1 .letter{ opacity:1; transform:translateY(0); transition: transform 360ms cubic-bezier(.2,.9,.2,1), opacity 320ms }
+.israd-loader-min.phase-1 .letter:nth-child(1){ transition-delay:0ms }
+.israd-loader-min.phase-1 .letter:nth-child(2){ transition-delay:100ms }
+.israd-loader-min.phase-1 .letter:nth-child(3){ transition-delay:200ms }
+.israd-loader-min.phase-1 .letter:nth-child(4){ transition-delay:300ms }
+.israd-loader-min.phase-1 .letter:nth-child(5){ transition-delay:400ms }
+
+/* The 'O' hero - we don't actually have O in ISRAD, so we'll target the center letter 'R' as hero for effect */
+.letter.hero-o{ position:relative }
+
+/* Phase 2: brief settle (no extra styles needed) */
+
+/* Phase 3: transform letter into circle (scale & border) */
+.israd-loader-min.phase-3 .letter.hero-o{ transition: all 280ms cubic-bezier(.2,.9,.2,1) 60ms; transform-origin:center; border-radius:999px; }
+.israd-loader-min.phase-3 .letter.hero-o{ padding:6px 10px; background:var(--fg); color:var(--bg); font-weight:900 }
+
+/* Phase 4: show pupil inside the circle */
+.eye{ position:absolute; left:50%; top:50%; width:0; height:0; transform:translate(-50%,-50%); z-index:12; pointer-events:none; opacity:0 }
+.israd-loader-min.phase-4 .eye{ width:44px; height:44px; opacity:1; transition: width 200ms ease, height 200ms ease, opacity 180ms }
+.eye .pupil{ width:12px; height:12px; border-radius:50%; background:var(--fg); transform:scale(0); margin:auto; position:relative; left:50%; top:50%; transform:translate(-50%,-50%) scale(0) }
+.israd-loader-min.phase-4 .eye .pupil{ transform:translate(-50%,-50%) scale(1); transition: transform 260ms cubic-bezier(.2,.9,.2,1) }
+
+/* Pupil action: quick glance right and back (phase-4 alternate) */
+.israd-loader-min.phase-4 .eye.glance .pupil{ transition: transform 120ms cubic-bezier(.2,.9,.2,1) 80ms }
+.israd-loader-min.phase-4 .eye.glance .pupil{ transform:translate(calc(-50% + 10px), -50%) scale(1) }
+
+/* Phase 5: expand circle as mask - use pseudo element to create mask wipe */
+.mask-circle{ position:fixed; left:50%; top:50%; width:200vmax; height:200vmax; background:var(--fg); border-radius:50%; transform:translate(-50%,-50%) scale(0); transform-origin:50% 50%; z-index:9998; pointer-events:none; will-change:transform,opacity }
+/* phase-5 triggers scale to 1 (expands to cover viewport via large fixed size) */
+.israd-loader-min.phase-5.phase-5-done .mask-circle{ transform:translate(-50%,-50%) scale(1); transition: transform 900ms cubic-bezier(.08,.9,.18,1) }
+/* keep a subtle fade on the mask itself for a smoother blend */
+.israd-loader-min.phase-5 .mask-circle{ transition: transform 900ms cubic-bezier(.08,.9,.18,1), opacity 420ms linear }
+
+/* Final: when done, hide loader with a slower, smoother fade */
+.israd-loader-min.done{ opacity:0; pointer-events:none; transition: opacity 720ms ease 120ms }
+
+/* Responsive tweaks */
+@media (max-width:640px){ .letter{ font-size:40px; gap:10px } }

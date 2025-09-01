@@ -1,4 +1,5 @@
 import Nav from './component/Nav'
+import Loader from './component/Loader'
 import { useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis'
 import Projects from './component/Projects'
@@ -6,6 +7,7 @@ import Cursor from './component/Cursor'
 
 function App() {
   const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     // Check screen size for cursor visibility
@@ -24,7 +26,9 @@ function App() {
     };
   }, []);
   useEffect(() => {
-    // Initialize Lenis for smooth scrolling
+    // Initialize Lenis for smooth scrolling after loader completes
+    if (loading) return
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
@@ -37,11 +41,6 @@ function App() {
       infinite: false,
     })
 
-    // Get scroll value
-    // lenis.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
-    //   console.log({ scroll, limit, velocity, direction, progress })
-    // })
-
     function raf(time) {
       lenis.raf(time)
       requestAnimationFrame(raf)
@@ -53,7 +52,14 @@ function App() {
     return () => {
       lenis.destroy()
     }
-  }, [])
+  }, [loading])
+
+  // safety fallback: if loader for some reason doesn't call onComplete, hide after 7s
+  useEffect(() => {
+    if (!loading) return
+    const id = setTimeout(() => setLoading(false), 7000)
+    return () => clearTimeout(id)
+  }, [loading])
   const projects = [
   {
     id: 1,
@@ -83,11 +89,12 @@ function App() {
   return (
     <>
     {isLargeScreen && <Cursor/>}
+    {loading && <Loader onComplete={() => setLoading(false)} />}
   <div className='bg-[#101820] text-[#F2AA4C]'>
     <Nav/>
     </div>
 
-    <div style={{fontFamily: "Space Grotesk, sans-serif"}} className="home bg-[#101820] text-[#F2AA4C]">
+  <div style={{fontFamily: "Space Grotesk, sans-serif"}} className={`home bg-[#101820] text-[#F2AA4C] ${!loading ? 'is-ready' : 'is-loading'}`} aria-hidden={loading}>
       <section className="selection:bg-[#F2AA4C] selection:text-[#101820] screen min-h-screen bg-[#101820] flex flex-col justify-center items-center py-12 md:py-20 px-4">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-thin mb-6 md:mb-8 text-center">Welcome to <span className='font-bold'>ISRAD</span></h1>
         <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 md:mb-12 max-w-4xl text-center leading-relaxed">Innovating sports through research, analysis and design.</p>
